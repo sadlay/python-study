@@ -1,3 +1,6 @@
+# 表头
+header_tuple = ("姓名", "电话", "QQ", "邮箱")
+
 # 所有名片记录的列表
 card_list = []
 
@@ -47,15 +50,7 @@ def show_all():
     if len(card_list) == 0:
         print("当前没有任何的名片记录，请使用新增功能添加名片！")
         return
-
-        # 打印表头
-    for name in ["姓名", "电话", "QQ", "邮箱"]:
-        print(name, end="\t\t")
-    print()
-    print("=" * 50)
-    # 遍历名片列表
-    for card_dict in card_list:
-        print("%s\t\t%s\t\t%s\t\t%s" % (card_dict["name"], card_dict["phone"], card_dict["qq"], card_dict["email"]))
+    print_table(card_list)
 
 
 def search_card():
@@ -69,9 +64,7 @@ def search_card():
     # 2. 遍历名片列表，查询要搜索的姓名，如果没有找到，需要提示用户
     for card_dict in card_list:
         if card_dict["name"] == find_name:
-            print("姓名\t\t电话\t\tQQ\t\t邮箱")
-            print("=" * 50)
-            print("%s\t\t%s\t\t%s\t\t%s" % (card_dict["name"], card_dict["phone"], card_dict["qq"], card_dict["email"]))
+            print_table([card_dict])
             deal_card(card_dict)
             break
     else:
@@ -114,6 +107,16 @@ def input_card_info(dict_value, tip_message):
         return dict_value
 
 
-def print_table_header():
-    print("姓名\t\t电话\t\tQQ\t\t邮箱")
+def print_table(print_card_list):
+    """ 打印表内容
+
+    :param print_card_list: 需要打印的列表
+    """
+    # 打印表头
+    for header in header_tuple:
+        print(header, end="\t\t")
+    print()
     print("=" * 50)
+    # 遍历名片列表
+    for card_dict in print_card_list:
+        print("%s\t\t%s\t\t%s\t\t%s" % (card_dict["name"], card_dict["phone"], card_dict["qq"], card_dict["email"]))
